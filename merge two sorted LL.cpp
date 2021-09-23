@@ -72,7 +72,7 @@ SinglyLinkedListNode* mergeLists(SinglyLinkedListNode* head1, SinglyLinkedListNo
 
 SinglyLinkedListNode *temp1,*temp2,*ll1=head1,*ll2=head2;
 
-while((ll1->next))
+while((ll1->next) && (ll2->next))
 {
     if(ll1->data <= ll2->data)
     {
