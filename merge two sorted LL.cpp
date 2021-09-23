@@ -68,41 +68,84 @@ void free_singly_linked_list(SinglyLinkedListNode* node) {
  * };
  *
  */
+
+
+void sort(int arr[],int n)
+{
+    int key,i,j;
+    for(j=1;j<n;j++)
+    {
+        key=arr[j];
+        i=j-1;
+        while(i>=0  && key<arr[i])
+        {
+            arr[i+1]=arr[i];
+            i=i-1;
+        }
+        arr[i+1]=key;
+    }
+}
+
+
 SinglyLinkedListNode* mergeLists(SinglyLinkedListNode* head1, SinglyLinkedListNode* head2) {
 
-SinglyLinkedListNode *temp1,*temp2,*ll1=head1,*ll2=head2;
+SinglyLinkedListNode *ll1=head1,*ll2=head2;
 
-while((ll1->next) && (ll2->next))
+int n1=0,n2=0,n3;
+while(ll1)
 {
-    if(ll1->data <= ll2->data)
-    {
-        while(!(ll2->data <= ll1->next->data))
-        {ll1=ll1->next;}
-        
-        temp1=ll1->next;
-        ll1->next=ll2;
-        temp2=ll2->next;
-        ll2->next=temp1;
-        ll2=temp2;
-        ll1=ll1->next;
-    }
-    else if(ll2->data <= ll1->data)
-    {
-        temp1=ll2->next;
-        ll2->next=ll1;
-        ll2=temp1;
-    }
-    /*else if((ll2->data >= ll1->data) && (ll2->data <= ll1->next->data))
-    {
-        temp1=ll1->next;temp2=ll2->next;
-        ll1->next=ll2;
-        ll2->next=temp1;
-        ll2=temp2;
-    }*/
+    n1++;
+    ll1=ll1->next;
 }
-return head1;
+while(ll2)
+{
+    n2++;
+    ll2=ll2->next;
+}
 
+n3=n1+n2;
+int *arr1=new int[n1];
+int *arr2=new int[n2];
+int *arr3=new int[n1+n2];
+ll1=head1;ll2=head2;
+
+for(int i=0;i<n1;i++)
+{
+    arr1[i]=ll1->data;
+    ll1=ll1->next;
 }
+
+for(int i=0;i<n2;i++)
+{
+    arr2[i]=ll2->data;
+    ll2=ll2->next;
+}
+
+for(int i=0;i<n1;i++)
+arr3[i]=arr1[i];
+
+for(int i=n1,j=0;j<n2;j++,i++)
+arr3[i]=arr2[j];
+
+sort(arr3,n1+n2);
+ll1=head1;ll2=head2;
+
+while(ll1->next)
+ll1=ll1->next;
+
+ll1->next=ll2;
+ll1=head1;
+for(int i=0;ll1;i++)
+{
+    ll1->data=arr3[i];
+    ll1=ll1->next;
+    
+}
+    return head1;
+}
+
+
+
 
 int main()
 {
